@@ -11,7 +11,7 @@ class animate(object):
         self.iterations = iterations
         self.history = np.array([[]])
         self.history = [self.model.lattice.copy()]
-        self.evolve()
+        
         
 
        
@@ -23,6 +23,7 @@ class animate(object):
 
 
     def animate(self):
+        self.evolve()
         fig = plt.figure()
         images = []
         count = 0
@@ -30,20 +31,16 @@ class animate(object):
             count+=1
             print(count)
             plt.title("Ising Model: ", fontsize=16)
-            renderImage = plt.pcolor(array2D, cmap=colors.ListedColormap(["Red", "Green"]), edgecolors='k', linewidth=2,
-                                     animated=True)
+            renderImage = plt.imshow(array2D)
             images.append([renderImage])
-            redLabel = patches.Patch(color='red', label='Down')
-            greenLabel = patches.Patch(color='green', label='Up')
-            plt.legend(handles=[redLabel, greenLabel])
         ani = animation.ArtistAnimation(fig, images, interval=0.01, blit=True, repeat=False)
         plt.show()
 
     def display(self):
+        for i in range(self.iterations):
+            print(i)
+            self.model.update()
         plt.axis('off')
         plt.title("Ising Model: ", fontsize=16)
-        redLabel = patches.Patch(color='red', label='Down')
-        greenLabel = patches.Patch(color='green', label='Up')
-        plt.legend(handles=[redLabel, greenLabel])
-        plt.pcolor(self.model.lattice, cmap=colors.ListedColormap(["Red", "Green"]), edgecolors='k', linewidth=2)
+        plt.imshow(self.model.lattice)
         plt.show()
