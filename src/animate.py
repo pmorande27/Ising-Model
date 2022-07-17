@@ -62,6 +62,14 @@ class animate(object):
         line.set_data(x, y)
         line.axes.axis([0, self.iterations, -10000, 0])
         return line,
+    def energy_animation_save(self):
+        fig, ax = plt.subplots()
+        x = []
+        y = []
+        line, = ax.plot([], [], color='k')
+        ani = animation.FuncAnimation(fig, self.update, frames =self.iterations,fargs=[x,y,line],
+                              interval=0.1, blit=True,repeat=False)
+        ani.save('animation.gif', writer='imagemagick', fps=120)
     def energy_animation(self):
         fig, ax = plt.subplots()
         x = []
@@ -70,5 +78,4 @@ class animate(object):
         ani = animation.FuncAnimation(fig, self.update, frames =self.iterations,fargs=[x,y,line],
                               interval=0.1, blit=True,repeat=False)
         plt.show()
-
         

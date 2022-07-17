@@ -5,7 +5,7 @@ import matplotlib.animation as animation
 from matplotlib import colors
 from matplotlib import patches
 def main():
-    a = animate(50,20,10000)
+    a = animate(50,1,10000)
     a.energy_animation()
 
 main()
