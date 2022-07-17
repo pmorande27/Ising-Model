@@ -82,3 +82,7 @@ class animate(object):
         for i in range(self.iterations):
             self.model.update()
             print(Model.get_energy(self.model.lattice))
+    def get_lattice(self):
+        for i in range(self.iterations):
+            self.model.update()
+        print(self.model.lattice)
