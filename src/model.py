@@ -37,10 +37,8 @@ class Model(object):
             new_lattice[position[0],position[1]] = 1
         return new_lattice
 
-            
 
        
-        return lattice
     def update(self):
         while True:
             candidate_state = Model.generate_new_state(self.lattice)

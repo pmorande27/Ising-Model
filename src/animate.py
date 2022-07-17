@@ -78,4 +78,7 @@ class animate(object):
         ani = animation.FuncAnimation(fig, self.update, frames =self.iterations,fargs=[x,y,line],
                               interval=0.1, blit=True,repeat=False)
         plt.show()
-        
+    def get_energy(self):
+        for i in range(self.iterations):
+            self.model.update()
+            print(Model.get_energy(self.model.lattice))

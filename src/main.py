@@ -6,7 +6,7 @@ from matplotlib import colors
 from matplotlib import patches
 def main():
     a = animate(50,1,10000)
-    a.energy_animation_save()
+    a.get_energy()
 
 main()
 '''
