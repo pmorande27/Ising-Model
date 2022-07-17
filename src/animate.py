@@ -2,8 +2,11 @@ from model import Model
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import sys
 from matplotlib import colors
 from matplotlib import patches
+np.set_printoptions(threshold=sys.maxsize)
+
 class animate(object):
     def __init__(self, dimension, Temperature, iterations):
         self.model = Model(dimension,Temperature)
@@ -42,7 +45,7 @@ class animate(object):
         plt.axis('off')
         plt.title("Ising Model: ", fontsize=16)
         plt.imshow(self.model.lattice)
-        plt.show()
+        plt.savefig('Ising Model')
     def updatefig(self,i):
         self.model.update()
         self.im.set_array(self.model.lattice)
