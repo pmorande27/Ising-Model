@@ -129,5 +129,5 @@ class Animation(object):
         Method used to update the system a set number of iterations to get the final matrix
         """
         for i in range(self.iterations):
-            self.model.update()
+            self.model.update() 
         return self.model.lattice
