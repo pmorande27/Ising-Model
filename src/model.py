@@ -50,7 +50,8 @@ class Model(object):
                 if random.random() <= math.e**(-self.beta*delta_E):
                     self.lattice = candidate_state
                     break
-    
+    def get_magnetisation(self):
+        return self.lattice.sum()
 
 
 

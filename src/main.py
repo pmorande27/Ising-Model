@@ -5,8 +5,8 @@ import matplotlib.animation as animation
 from matplotlib import colors
 from matplotlib import patches
 def main():
-    a = Animation(50,1,100000)
-    a.energy_animation()
+    a = Animation(50,10,10000*2)
+    a.magnet_animation()
     
 
 main()

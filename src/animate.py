@@ -131,3 +131,26 @@ class Animation(object):
         for i in range(self.iterations):
             self.model.update() 
         return self.model.lattice
+    
+    def update_magnet(self,num,x,y, line):
+        """
+        Method used to update the model to get the energy for animation
+        """
+        x += [num]
+        self.model.update()
+        y += [self.model.get_magnetisation()]
+        line.set_data(x, y)
+        line.axes.axis([0, self.iterations, -self.model.N**2, self.model.N**2])
+        return line,
+    
+    def magnet_animation(self):
+        """
+        Method used to create an animation of the energy of the system. It saves the animation
+        """
+        fig, ax = plt.subplots()
+        x = []
+        y = []
+        line, = ax.plot([], [], color='k')
+        ani = animation.FuncAnimation(fig, self.update_magnet, frames =self.iterations,fargs=[x,y,line],
+                              interval=0.1, blit=True,repeat=False)
+        plt.show()
