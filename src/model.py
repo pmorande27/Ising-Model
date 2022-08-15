@@ -76,6 +76,9 @@ class Model(object):
                     self.lattice = candidate_state
                     break
     def get_magnetisation(self) -> float:
+        """
+        Method used to get the magnetisation of the lattice
+        """
         return self.lattice.sum()
 
 
