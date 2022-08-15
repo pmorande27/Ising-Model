@@ -1,13 +1,12 @@
 from model import Model
-from animate import animate
+from animate import Animation
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib import colors
 from matplotlib import patches
 def main():
-    a = animate(50,1,100000)
-    lattice = a.get_lattice()
-    print(lattice.tolist())
+    a = Animation(50,1,100000)
+    a.energy_animation()
     
 
 main()

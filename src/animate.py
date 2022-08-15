@@ -7,24 +7,31 @@ from matplotlib import colors
 from matplotlib import patches
 np.set_printoptions(threshold=sys.maxsize)
 
-class animate(object):
+class Animation(object):
     def __init__(self, dimension, Temperature, iterations):
+        """
+        Consturctor of the Animation class
+        """
         self.model = Model(dimension,Temperature)
         self.model.set_up_random_state()
         self.iterations = iterations
         self.history = np.array([[]])
         self.history = [self.model.lattice.copy()]
         
-
-       
     def evolve(self):
+        """
+        Method used to evolve the model one step
+        """
         for i in range(self.iterations):
             print(i)
             self.model.update()
             self.history += [self.model.lattice.copy()]
 
-
     def animate(self):
+        """
+        Method used to create an animation of the system, it will first make all the updates
+        and then it will create the animation
+        """
         self.evolve()
         fig = plt.figure()
         images = []
@@ -39,6 +46,10 @@ class animate(object):
         plt.show()
 
     def display(self):
+        """
+        Method used to update the system a set number of iterations and to display the final 
+        result
+        """
         for i in range(self.iterations):
             print(i)
             self.model.update()
@@ -46,26 +57,45 @@ class animate(object):
         plt.title("Ising Model: ", fontsize=16)
         plt.imshow(self.model.lattice)
         plt.savefig('Ising Model')
+
     def updatefig(self,i):
+        """
+        Method used to update the system for animation
+        """
         self.model.update()
         self.im.set_array(self.model.lattice)
         return [self.im]
+
     def init(self):
+        """
+        Method used to init the animation
+        """
         self.im = plt.imshow(self.model.lattice)
         return [self.im]
+
     def animation(self):
-        
+        """
+        Method used to create an animation of the model
+        """
         fig = plt.figure()
         ani = animation.FuncAnimation(fig, self.updatefig,init_func=self.init,interval = 0.01, blit = True)
         plt.show()
+
     def update(self,num,x,y, line):
+        """
+        Method used to update the model to get the energy for animation
+        """
         x += [num]
         self.model.update()
         y += [Model.get_energy(self.model.lattice)]
         line.set_data(x, y)
-        line.axes.axis([0, self.iterations, -10000, 0])
+        line.axes.axis([0, self.iterations, -4*self.model.N*self.model.N, 0])
         return line,
+
     def energy_animation_save(self):
+        """
+        Method used to create an animation of the energy of the system. It saves the animation
+        """
         fig, ax = plt.subplots()
         x = []
         y = []
@@ -73,7 +103,11 @@ class animate(object):
         ani = animation.FuncAnimation(fig, self.update, frames =self.iterations,fargs=[x,y,line],
                               interval=0.1, blit=True,repeat=False)
         ani.save('animation.gif', writer='imagemagick', fps=120)
+
     def energy_animation(self):
+        """
+        Method used to create an animation of the energy of the system. It saves the animation
+        """
         fig, ax = plt.subplots()
         x = []
         y = []
@@ -81,11 +115,19 @@ class animate(object):
         ani = animation.FuncAnimation(fig, self.update, frames =self.iterations,fargs=[x,y,line],
                               interval=0.1, blit=True,repeat=False)
         plt.show()
+
     def get_energy(self):
+        """
+        Method used to update the system a set number of iterations to get the final energy of the system.
+        """
         for i in range(self.iterations):
             self.model.update()
             print(Model.get_energy(self.model.lattice))
+
     def get_lattice(self):
+        """
+        Method used to update the system a set number of iterations to get the final matrix
+        """
         for i in range(self.iterations):
             self.model.update()
         return self.model.lattice
