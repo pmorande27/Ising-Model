@@ -21,7 +21,7 @@ class Model(object):
         """
         return str(self.lattice)
 
-    def set_up_random_state(self):
+    def set_up_random_state(self) -> None:
         """
         Method used to set up the model in a random state with 50% of the spins up and
         50% of the spins down
@@ -30,7 +30,7 @@ class Model(object):
         self.lattice[random>=0.50] = 1
         self.lattice[random<=0.50] = -1
 
-    def show_state(self):
+    def show_state(self) -> None:
         """
         Method used to show the state with a plot
         """
@@ -38,7 +38,7 @@ class Model(object):
         plt.show()
 
     @staticmethod
-    def get_energy(lattice):
+    def get_energy(lattice) -> float:
         """
         Method used to get the energy of the system
         """
@@ -47,9 +47,9 @@ class Model(object):
         energy_array = - lattice*convolve(lattice,kernel,mode='constant',cval=0)
         return energy_array.sum()
     @staticmethod
-    def generate_new_state(lattice):
+    def generate_new_state(lattice) -> np.array:
         """
-        Method used to generate a new state aka Metropolis Algorithm
+        Method used to generate a new state aka Glouber Dynamics
         """
         new_lattice =np.copy(lattice)
         position = np.random.randint(len(new_lattice),size = 2)
@@ -61,7 +61,10 @@ class Model(object):
 
 
        
-    def update(self):
+    def update(self) -> None:
+        """
+        Method used to generate a new state aka Metropolis Algorithm
+        """
         while True:
             candidate_state = Model.generate_new_state(self.lattice)
             delta_E =   Model.get_energy(candidate_state)-Model.get_energy(self.lattice)
@@ -72,7 +75,7 @@ class Model(object):
                 if random.random() <= math.e**(-self.beta*delta_E):
                     self.lattice = candidate_state
                     break
-    def get_magnetisation(self):
+    def get_magnetisation(self) -> float:
         return self.lattice.sum()
 
 
