@@ -1,25 +1,12 @@
-from model import Model
+"""
+Main file
+"""
 from animate import Animation
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-from matplotlib import colors
-from matplotlib import patches
 def main():
-    a = Animation(50,10,10000*2)
-    a.magnet_animation()
-    
+    """
+    Main method
+    """
+    animation = Animation(50, 10, 10000*2)
+    animation.magnet_animation()
 
 main()
-'''
-model = Model(150,1)
-model.set_up_random_state()
-im = plt.imshow(model.lattice,animated=True)
-fig = plt.figure()
-
-def updatefig(i):
-    model.update()
-    im.set_array(model.lattice)
-    return [im]
-ani = animation.FuncAnimation(fig, updatefig,interval = 50, blit = True)
-plt.show()
-'''

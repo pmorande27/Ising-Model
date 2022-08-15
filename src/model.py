@@ -46,6 +46,7 @@ class Model(object):
         kernel[1][1] = False
         energy_array = - lattice*convolve(lattice,kernel,mode='constant',cval=0)
         return energy_array.sum()
+
     @staticmethod
     def generate_new_state(lattice) -> np.array:
         """
@@ -67,7 +68,7 @@ class Model(object):
         """
         while True:
             candidate_state = Model.generate_new_state(self.lattice)
-            delta_E =   Model.get_energy(candidate_state)-Model.get_energy(self.lattice)
+            delta_E =  Model.get_energy(candidate_state)-Model.get_energy(self.lattice)
             if delta_E < 0:
                 self.lattice = candidate_state
                 break
