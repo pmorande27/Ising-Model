@@ -6,7 +6,7 @@ def main():
     """
     Main method
     """
-    animation = Animation(50, 10, 10000*2)
-    animation.magnet_animation()
+    animation = Animation(50, 2, 10000*2,-0.1)
+    animation.animation()
 
 main()

@@ -1,12 +1,17 @@
+"""
+Model module
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.ndimage import convolve,generate_binary_structure
 from sympy import Mod
-import random 
+import random
 import math
 class Model(object):
-
-    def __init__(self,N,T) -> None:
+    """
+    Class to represent the Ising Model
+    """
+    def __init__(self,N,T,H) -> None:
         """
         Constructor of the class
         """
@@ -14,7 +19,9 @@ class Model(object):
         self.lattice = np.ones((self.N,self.N))
         self.T = T
         self.k = 1
+        self.H = H
         self.beta = 1/(self.k*T)
+        
     def __str__(self) -> str:
         """
         Override to string method for printing
@@ -38,14 +45,15 @@ class Model(object):
         plt.show()
 
     @staticmethod
-    def get_energy(lattice) -> float:
+    def get_energy(lattice, H) -> float:
         """
         Method used to get the energy of the system
         """
         kernel = generate_binary_structure(2,1)
         kernel[1][1] = False
         energy_array = - lattice*convolve(lattice,kernel,mode='constant',cval=0)
-        return energy_array.sum()
+        magnetic_energy = -H * lattice.sum()
+        return energy_array.sum()+magnetic_energy
 
     @staticmethod
     def generate_new_state(lattice) -> np.array:
@@ -60,15 +68,13 @@ class Model(object):
             new_lattice[position[0],position[1]] = 1
         return new_lattice
 
-
-       
     def update(self) -> None:
         """
         Method used to generate a new state aka Metropolis Algorithm
         """
         while True:
             candidate_state = Model.generate_new_state(self.lattice)
-            delta_E =  Model.get_energy(candidate_state)-Model.get_energy(self.lattice)
+            delta_E =  Model.get_energy(candidate_state,self.H)-Model.get_energy(self.lattice,self.H)
             if delta_E < 0:
                 self.lattice = candidate_state
                 break
@@ -76,6 +82,7 @@ class Model(object):
                 if random.random() <= math.e**(-self.beta*delta_E):
                     self.lattice = candidate_state
                     break
+
     def get_magnetisation(self) -> float:
         """
         Method used to get the magnetisation of the lattice

@@ -8,11 +8,11 @@ from matplotlib import patches
 np.set_printoptions(threshold=sys.maxsize)
 
 class Animation(object):
-    def __init__(self, dimension, Temperature, iterations):
+    def __init__(self, dimension, Temperature, iterations, H):
         """
         Consturctor of the Animation class
         """
-        self.model = Model(dimension,Temperature)
+        self.model = Model(dimension,Temperature, H)
         self.model.set_up_random_state()
         self.iterations = iterations
         self.history = np.array([[]])
@@ -122,7 +122,7 @@ class Animation(object):
         """
         for i in range(self.iterations):
             self.model.update()
-            print(Model.get_energy(self.model.lattice))
+            print(Model.get_energy(self.model.lattice,self.model.H))
 
     def get_lattice(self):
         """
