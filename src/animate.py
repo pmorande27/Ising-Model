@@ -8,7 +8,7 @@ from matplotlib import patches
 np.set_printoptions(threshold=sys.maxsize)
 
 class Animation(object):
-    def __init__(self, dimension, Temperature, iterations, H):
+    def __init__(self, dimension: int, Temperature: float, iterations: int, H: float) -> None:
         """
         Consturctor of the Animation class
         """
@@ -19,7 +19,7 @@ class Animation(object):
         self.history = [self.model.lattice.copy()]
         self.H = H
         
-    def evolve(self):
+    def evolve(self) -> None:
         """
         Method used to evolve the model one step
         """
@@ -28,7 +28,7 @@ class Animation(object):
             self.model.update()
             self.history += [self.model.lattice.copy()]
 
-    def animate(self):
+    def animate(self) -> None:
         """
         Method used to create an animation of the system, it will first make all the updates
         and then it will create the animation
@@ -46,7 +46,7 @@ class Animation(object):
         ani = animation.ArtistAnimation(fig, images, interval=0.01, blit=True, repeat=False)
         plt.show()
 
-    def display(self):
+    def display(self) -> None:
         """
         Method used to update the system a set number of iterations and to display the final 
         result
@@ -59,28 +59,22 @@ class Animation(object):
         plt.imshow(self.model.lattice)
         plt.savefig('Ising Model')
 
-    def updatefig(self,i):
+    def updatefig(self,i) -> None:
         """
         Method used to update the system for animation
         """
         self.model.update()
         self.im.set_array(self.model.lattice)
         return [self.im]
-    def init(self):
+
+    def init(self) -> None:
         """
         Method used to init the animation
         """
         self.im = plt.imshow(self.model.lattice)
         return [self.im]
-    def init_T(self):
-        """
-        Method used to init the animation
-        """
-        self.im = plt.imshow(self.model.lattice)
-        self.temp = plt.plot([], [], color='k')
-        return [self.im,self.temp]
 
-    def animation(self):
+    def animation(self) -> None:
         """
         Method used to create an animation of the model
         """
@@ -89,7 +83,7 @@ class Animation(object):
         ani = animation.FuncAnimation(fig, self.updatefig,init_func=self.init, blit = True)
         plt.show()
         
-    def update_all(self,num, x_energy, y_energy, x_magnet, y_magnet, line_energy,line_magnet):
+    def update_all(self,num: int, x_energy, y_energy, x_magnet, y_magnet, line_energy,line_magnet) -> None:
         x_energy += [num]
         x_magnet += [num]
         self.model.update()
@@ -105,7 +99,7 @@ class Animation(object):
         return [self.im, self.temp, line_energy,line_magnet]
 
         
-    def all_animations(self):
+    def all_animations(self) -> None :
         fig, ((ax1,ax2),(ax3,ax4)) = plt.subplots(2,2)
         x_energy = []
         y_energy = []
@@ -113,8 +107,8 @@ class Animation(object):
         x_magnet = []
         y_magnet = []
         line_magnet, = ax4.plot([],[],color='k')
-        self.im = ax1.imshow(self.model.lattice)
-        self.temp, = ax2.bar(' ',self.model.T)
+        self.im = ax1.imshow(self.model.lattice,aspect='auto',cmap = 'Greys')
+        self.temp, = ax2.bar(' ',self.model.T,color = ['Black'])
         ax2.set_title('Temperature')
         ax1.set_title('Ising Model')
         ax3.set_title('Energy')
