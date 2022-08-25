@@ -73,8 +73,8 @@ class Model_variable_temperature(object):
         Method used to generate a new state aka Metropolis Algorithm
         """
         while True:
-            candidate_state = Model.generate_new_state(self.lattice)
-            delta_E =  Model.get_energy(candidate_state,self.H)-Model.get_energy(self.lattice,self.H)
+            candidate_state = Model_variable_temperature.generate_new_state(self.lattice)
+            delta_E =  Model_variable_temperature.get_energy(candidate_state,self.H)-Model_variable_temperature.get_energy(self.lattice,self.H)
             if delta_E < 0:
                 self.lattice = candidate_state
                 break

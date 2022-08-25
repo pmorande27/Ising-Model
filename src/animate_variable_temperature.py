@@ -7,12 +7,12 @@ from matplotlib import colors
 from matplotlib import patches
 np.set_printoptions(threshold=sys.maxsize)
 
-class Animation(object):
-    def __init__(self, dimension, T_max,T_min, iterations, H):
+class Animation_variable_temperature(object):
+    def __init__(self, dimension, T_max, T_min, delta_T, iterations, H):
         """
         Consturctor of the Animation class
         """
-        self.model = Model_variable_temperature(dimension,T_max,T_min, H)
+        self.model = Model_variable_temperature(dimension, T_max, T_min, delta_T, H)
         self.model.set_up_random_state()
         self.iterations = iterations
         self.history = np.array([[]])
@@ -32,7 +32,7 @@ class Animation(object):
         """
         Method used to update the system for animation
         """
-        self.model.update_with_no_constant_temperature(0.001)
+        self.model.update()
         self.im.set_array(self.model.lattice)
         self.temp.set_height(self.model.T)
         return [self.im,self.temp]

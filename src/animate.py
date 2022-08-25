@@ -65,22 +65,29 @@ class Animation(object):
         self.model.update()
         self.im.set_array(self.model.lattice)
         return [self.im]
-
     def init(self):
         """
         Method used to init the animation
         """
         self.im = plt.imshow(self.model.lattice)
         return [self.im]
+    def init_T(self):
+        """
+        Method used to init the animation
+        """
+        self.im = plt.imshow(self.model.lattice)
+        self.temp = plt.plot([], [], color='k')
+        return [self.im,self.temp]
 
     def animation(self):
         """
         Method used to create an animation of the model
         """
+        fig, (ax1,ax2) = plt.subplots(1,2)
         fig = plt.figure()
-        ani = animation.FuncAnimation(fig, self.updatefig,init_func=self.init,interval = 0.01, blit = True)
+        ani = animation.FuncAnimation(fig, self.updatefig,init_func=self.init, blit = True)
         plt.show()
-
+        
     def update(self,num,x,y, line):
         """
         Method used to update the model to get the energy for animation
@@ -154,3 +161,4 @@ class Animation(object):
         ani = animation.FuncAnimation(fig, self.update_magnet, frames =self.iterations,fargs=[x,y,line],
                               interval=0.1, blit=True,repeat=False)
         plt.show()
+    

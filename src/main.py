@@ -2,11 +2,12 @@
 Main file
 """
 from animate import Animation
+from animate_variable_temperature import Animation_variable_temperature
 def main():
     """
     Main method
     """
-    animation = Animation(50, 2, 10000*2,-0.1)
-    animation.animation()
+    animation = Animation_variable_temperature(100, 10,2, 0.001, 10000*2,0)
+    animation.animate()
 
 main()
