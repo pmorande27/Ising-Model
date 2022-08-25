@@ -67,7 +67,7 @@ class Model(object):
         else:
             new_lattice[position[0],position[1]] = 1
         return new_lattice
-
+    
     def update(self) -> None:
         """
         Method used to generate a new state aka Metropolis Algorithm
