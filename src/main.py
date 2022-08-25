@@ -9,6 +9,6 @@ def main():
     """
     Main method
     """
-    animation = Animation_variable_temperature(100, 10,2, 0.001, 10000*4,0)
+    animation = Animation(100, 2, 10000*4,0)
     animation.all_animations()
 main()
