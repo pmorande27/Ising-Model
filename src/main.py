@@ -7,7 +7,7 @@ def main():
     """
     Main method
     """
-    animation = Animation_variable_temperature(100, 10,2, 0.001, 10000*2,0)
-    animation.animate()
+    animation = Animation_variable_temperature(50, 10,2, 0.001, 10000*2,0)
+    animation.all_animations()
 
 main()
