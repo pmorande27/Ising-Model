@@ -56,13 +56,14 @@ class Animation(object):
             self.model.update()
         plt.axis('off')
         plt.title("Ising Model: ", fontsize=16)
-        plt.imshow(self.model.lattice)
-        plt.savefig('Ising Model')
+        plt.imshow(self.model.lattice,cmap='Greys',aspect='auto')
+        plt.savefig('../results/Ising Model01.png')
 
     def updatefig(self,i) -> None:
         """
         Method used to update the system for animation
         """
+        print(i)
         self.model.update()
         self.im.set_array(self.model.lattice)
         return [self.im]
@@ -78,12 +79,13 @@ class Animation(object):
         """
         Method used to create an animation of the model
         """
-        fig, (ax1,ax2) = plt.subplots(1,2)
         fig = plt.figure()
-        ani = animation.FuncAnimation(fig, self.updatefig,init_func=self.init, blit = True)
+        self.im = plt.imshow(self.model.lattice,cmap='Greys')
+        ani = animation.FuncAnimation(fig, self.updatefig, interval = 0,blit = True)
         plt.show()
         
     def update_all(self,num: int, x_energy, y_energy, x_magnet, y_magnet, line_energy,line_magnet) -> None:
+        print(num)
         x_energy += [num]
         x_magnet += [num]
         self.model.update()
